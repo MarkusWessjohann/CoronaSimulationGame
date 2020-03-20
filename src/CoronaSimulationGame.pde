@@ -25,15 +25,22 @@ void keyPressed() {
       volk.userLeft();
     } else if (keyCode == RIGHT) {
       volk.userRight();
-    }
-  } else if (LevelEnde) {
-    if (volk.lebtUser()) {
-    Level = Level + 2;
-    volk.initVolk(Level);
-    loop();
-    }
-  }
-  
+    } else if (keyCode == CONTROL) {
+      if (LevelEnde && !volk.lebtUser()) {
+        Level = 10;
+        volk.initVolk(Level);
+        loop();
+      }
+   }
+ } else {
+     if (LevelEnde) {
+       if (volk.lebtUser()) {
+          Level = Level + 2;
+          volk.initVolk(Level);
+          loop();
+        }
+      }
+   }
 }
 
 void draw() {
@@ -60,9 +67,12 @@ void draw() {
       text("Spiel Infiziert: " + statistik.AnzahlInfiziertGesamt, 10,400);
       text("Spiel Geheilt  : " + statistik.AnzahlGeheiltGesamt, 10,450);
       text("Spiel Tod      : " + statistik.AnzahlTodGesamt, 10,500);
+      fill(255,0,0);
       text("Durch User infiziert: " + statistik.AnzahlUserInfiziertGesamt, 300,400);
       text("Durch User gestorben: " + statistik.AnzahlUserTodGesamt, 300,500);
-    }
+      textSize(52);  
+      text("#wirbleibenzuhause", 120, 600);
+  }
     noLoop();
   }
   
@@ -268,7 +278,7 @@ class Person {
         if (statusZeit >= neuerStatus) {
           int schwellWert = 10;
             schwellWert = schwellWert - level / 8;
-          if (random(10) < 9) {
+          if (random(10) < schwellWert) {
             status = geheilt;
           } else {
             setTod();
