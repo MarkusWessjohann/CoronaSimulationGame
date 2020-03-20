@@ -30,8 +30,8 @@ Stirbt man wird eine Gesamtstatistik angezeigt und das Spiel kann mittels STRG n
 .
 ## Authors
 
-* Markus Wessjohann - *Iniital Work* - [MarkusWessjohann](https://github.com/MarkusWessjohann)
+* Markus Wessjohann - *Initial Work* - [MarkusWessjohann](https://github.com/MarkusWessjohann)
 
 # License
 
-This projekt is licensed under GPL-3.0 - see the [LICENSE.md](https://github.com/MarkusWessjohann/CoronaSimulationGame/LICENSE.md)
+This projekt is licensed under GPL-3.0 - see the [LICENSE](https://github.com/MarkusWessjohann/CoronaSimulationGame/LICENSE)
