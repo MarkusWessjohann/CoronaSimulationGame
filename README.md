@@ -34,4 +34,4 @@ Stirbt man wird eine Gesamtstatistik angezeigt und das Spiel kann mittels STRG n
 
 # License
 
-This projekt is licensed under GPL-3.0 - see the [LICENSE](https://github.com/MarkusWessjohann/CoronaSimulationGame/LICENSE)
+This projekt is licensed under GPL-3.0 - see the [LICENSE](https://github.com/MarkusWessjohann/CoronaSimulationGame/blob/master/LICENSE)
