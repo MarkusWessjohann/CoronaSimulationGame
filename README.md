@@ -1,0 +1,2 @@
+# CoronaSimulationGame
+Ein Corona Simulationsspiel
