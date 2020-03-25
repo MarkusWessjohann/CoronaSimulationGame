@@ -10,103 +10,100 @@
 
 
 function setup() {
-  createCanvas(1024, 720);
+  var canvas = createCanvas(1024, 720);
+  //canvas.parent("p5container");
   volk = new Volk();
   statistik = new Statistikdaten();
-  volk.initVolk(Level);
+  //volk.initVolk(Level);
 }
 
-function keyPressed() {
-  if (key == CODED) {
-    if (keyCode == UP) {
-      volk.userUp();
-    } else if (keyCode == DOWN) {
-      volk.userDown();
-    } else if (keyCode == LEFT) {
-      volk.userLeft();
-    } else if (keyCode == RIGHT) {
-      volk.userRight();
-    } else if (keyCode == CONTROL) {
-      if (LevelEnde && !volk.lebtUser()) {
-        Level = 10;
-        volk.initVolk(Level);
-        loop();
-      }
-   }
- } else {
-     if (LevelEnde) {
-       if (volk.lebtUser()) {
-          Level = Level + 2;
-          volk.initVolk(Level);
-          loop();
-        }
-      }
-   }
-}
+//function keyPressed() {
+//  if (key == CODED) {
+//    if (keyCode == UP) {
+//      volk.userUp();
+//    } else if (keyCode == DOWN) {
+//      volk.userDown();
+//    } else if (keyCode == LEFT) {
+//      volk.userLeft();
+//    } else if (keyCode == RIGHT) {
+//      volk.userRight();
+//    } else if (keyCode == CONTROL) {
+//      if (LevelEnde && !volk.lebtUser()) {
+//        Level = 10;
+//        volk.initVolk(Level);
+//        loop();
+//      }
+//   }
+// } else {
+//     if (LevelEnde) {
+//       if (volk.lebtUser()) {
+//          Level = Level + 2;
+//          volk.initVolk(Level);
+//          loop();
+//        }
+//      }
+//   }
+//}
 
 
 function draw() {
-  background(255,255,255);
+  background(255,255,0);
+ 
+  //volk.draw();
   
-  volk.draw();
-  
-  if (volk.istEnde()) {
-    LevelEnde = true;
+  //if (volk.istEnde()) {
+  //  LevelEnde = true;
     
-    statistik.addLeveldata(volk);
-    textSize(26);
-    fill(0);
-    text("Level Gesamt   : " + volk.AnzahlPersonen, 10,50);
-    text("Level Gesund   : " + volk.AnzahlGesund, 10,100);
-    text("Level Infiziert: " + volk.AnzahlInfiziert, 10,150);
-    text("Level Geheilt  : " + volk.AnzahlGeheilt, 10,200);
-    text("Level Tod      : " + volk.AnzahlTod, 10,250);
-    if (! volk.lebtUser()) {
+  //  statistik.addLeveldata(volk);
+  //  textSize(26);
+  //  fill(0);
+  //  text("Level Gesamt   : " + volk.AnzahlPersonen, 10,50);
+  //  text("Level Gesund   : " + volk.AnzahlGesund, 10,100);
+  //  text("Level Infiziert: " + volk.AnzahlInfiziert, 10,150);
+  //  text("Level Geheilt  : " + volk.AnzahlGeheilt, 10,200);
+  //  text("Level Tod      : " + volk.AnzahlTod, 10,250);
+  //  if (! volk.lebtUser()) {
       
-      text("Spiel Gesamt   : " + statistik.AnzahlPersonenGesamt, 10,300);
-      text("Spiel Gesund   : " + statistik.AnzahlGesundGesamt, 10,350);
-      text("Spiel Infiziert: " + statistik.AnzahlInfiziertGesamt, 10,400);
-      text("Spiel Geheilt  : " + statistik.AnzahlGeheiltGesamt, 10,450);
-      text("Spiel Tod      : " + statistik.AnzahlTodGesamt, 10,500);
-      fill(255,0,0);
-      text("Durch User infiziert: " + statistik.AnzahlUserInfiziertGesamt, 300,400);
-      text("Durch User gestorben: " + statistik.AnzahlUserTodGesamt, 300,500);
-      textSize(52);  
-      text("#wirbleibenzuhause", 120, 600);
-  }
-    noLoop();
-  }
-
+  //    text("Spiel Gesamt   : " + statistik.AnzahlPersonenGesamt, 10,300);
+  //    text("Spiel Gesund   : " + statistik.AnzahlGesundGesamt, 10,350);
+  //    text("Spiel Infiziert: " + statistik.AnzahlInfiziertGesamt, 10,400);
+  //    text("Spiel Geheilt  : " + statistik.AnzahlGeheiltGesamt, 10,450);
+  //    text("Spiel Tod      : " + statistik.AnzahlTodGesamt, 10,500);
+  //    fill(255,0,0);
+  //    text("Durch User infiziert: " + statistik.AnzahlUserInfiziertGesamt, 300,400);
+  //    text("Durch User gestorben: " + statistik.AnzahlUserTodGesamt, 300,500);
+  //    textSize(52);  
+  //    text("#wirbleibenzuhause", 120, 600);
+  //}
+  //  noLoop();
+  //}
 }
 
 
-class Statistikdaten {
+function Statistikdaten() {
     
-  constructor() {
-    this.AnzahlPersonenGesamt = 0;
-    this.AnzahlGesundGesamt = 0;
-    this.AnzahlInfiziertGesamt = 0;
-    this.AnzahlGeheiltGesamt = 0;
-    this.AnzahlTodGesamt = 0;
-    this.AnzahlUserTodGesamt = 0;
-    this.AnzahlUserInfiziertGesamt = 0;
-    }
+  this.AnzahlPersonenGesamt = 0;
+  this.AnzahlGesundGesamt = 0;
+  this.AnzahlInfiziertGesamt = 0;
+  this.AnzahlGeheiltGesamt = 0;
+  this.AnzahlTodGesamt = 0;
+  this.AnzahlUserTodGesamt = 0;
+  this.AnzahlUserInfiziertGesamt = 0;
     
-    addLeveldata(Volk volk) {
-      
-      AnzahlPersonenGesamt += volk.AnzahlPersonen;
-      AnzahlGesundGesamt += volk.AnzahlGesund;
-      AnzahlInfiziertGesamt += volk.AnzahlInfiziert;
-      AnzahlGeheiltGesamt += volk.AnzahlGeheilt;
-      AnzahlTodGesamt += volk.AnzahlTod;
-      AnzahlUserTodGesamt += volk.AnzahlUserTod;
-      AnzahlUserInfiziertGesamt += volk.AnzahlUserInfiziert;
-    }
+  this.addLeveldata = function(volk) {
+    
+    this.AnzahlPersonenGesamt += volk.AnzahlPersonen;
+    this.AnzahlGesundGesamt += volk.AnzahlGesund;
+    this.AnzahlInfiziertGesamt += volk.AnzahlInfiziert;
+    this.AnzahlGeheiltGesamt += volk.AnzahlGeheilt;
+    this.AnzahlTodGesamt += volk.AnzahlTod;
+    this.AnzahlUserTodGesamt += volk.AnzahlUserTod;
+    this.AnzahlUserInfiziertGesamt += volk.AnzahlUserInfiziert;
+  };
 }
 
-class Volk {
+function Volk() {
 
-  constructor() {
   this.AnzahlPersonen = 10;
 
   this.AnzahlGesund=0;
@@ -116,173 +113,159 @@ class Volk {
   this.AnzahlInfiziert=0;
   this.AnzahlUserInfiziert=0;
  
-  let Personen = [];
+  this.Personen = [];
   
-  }
- 
-
-  initVolk(maxPersonen) {
-    AnzahlPersonen = maxPersonen;
+  this.initVolk = function(maxPersonen) {
+    this.AnzahlPersonen = maxPersonen;
     
-    Personen[0] = new Person((1024/2), (720/2), 10, gesund, true, AnzahlPersonen);
+    this.Personen[0] = new Person((1024/2), (720/2), 10, gesund, true, AnzahlPersonen);
    
-    for (let i=1;i<AnzahlPersonen;i++) {
+    for (let i=1;i<this.AnzahlPersonen;i++) {
   
-      Personen[i] = new Person(random(1000)+10, random(700)+10, 10, gesund, false, AnzahlPersonen);
+      this.Personen[i] = new Person(random(1000)+10, random(700)+10, 10, gesund, false, AnzahlPersonen);
     }
     
     checkCollision();
     
-    Personen[1].setInfiziert(false);  
-  }
+    this.Personen[1].setInfiziert(false);  
+  };
 
-  userUp() {
-    Personen[0].updateVelocity(0,-2);
-  }
+  this.userUp = function() {
+    this.Personen[0].updateVelocity(0,-2);
+  };
   
-  userDown() {
-    Personen[0].updateVelocity(0, 2);
-  }
+  this.userDown = function() {
+    this.Personen[0].updateVelocity(0, 2);
+  };
   
-   userLeft() {
-    Personen[0].updateVelocity(-1.5, 0);
-  }
-  userRight() {
-    Personen[0].updateVelocity(1.5, 0);
-  }
+   this.userLeft = function() {
+    this.Personen[0].updateVelocity(-1.5, 0);
+  };
   
-  lebtUser() {
-    if (Personen[0].status == tod) {
+  this.userRight = function() {
+    this.Personen[0].updateVelocity(1.5, 0);
+  };
+  
+  this.lebtUser = function() {
+    if (this.Personen[0].status == tod) {
       return false;
     }
     return true;
-  }
+  };
   
-  draw() {
-  for (let i=1;i<AnzahlPersonen;i++) {
+  this.draw = function() {
+  for (let i=1;i<this.AnzahlPersonen;i++) {
   
-      Personen[i].update();
-      Personen[i].display();
-      Personen[i].checkBoundaryCollision();
+      this.Personen[i].update();
+      this.Personen[i].display();
+      this.Personen[i].checkBoundaryCollision();
     }
     
     checkCollision();
     
-  }
+  };
   
-  checkCollision() {
-    for (let i=0;i<AnzahlPersonen;i++) {
-      for (let j=i;j<AnzahlPersonen;j++) {
-        Personen[i].checkCollision(Personen[j]);
+  this.checkCollision = function() {
+    for (let i=0;i<this.AnzahlPersonen;i++) {
+      for (let j=i;j<this.AnzahlPersonen;j++) {
+        this.Personen[i].checkCollision(Personen[j]);
       }
     }
  
-  }
+  };
 
-  istEnde() {
+  this.istEnde = function() {
     let ende = true;
-    AnzahlGesund=0;
-    AnzahlTod=0;
-    AnzahlUserTod=0;
-    AnzahlGeheilt=0;
-    AnzahlInfiziert=0;
-    AnzahlUserInfiziert=0;
-    for (let i=0;i<AnzahlPersonen;i++) {
-      if (Personen[i].status == gesund) {
-          AnzahlGesund++;
+    this.AnzahlGesund=0;
+    this.AnzahlTod=0;
+    this.AnzahlUserTod=0;
+    this.AnzahlGeheilt=0;
+    this.AnzahlInfiziert=0;
+    this.AnzahlUserInfiziert=0;
+    for (let i=0;i<this.AnzahlPersonen;i++) {
+      if (this.Personen[i].status == gesund) {
+          this.AnzahlGesund++;
       }
-      if (Personen[i].status == tod) {
-          AnzahlTod++;
-          if (Personen[i].user) {
-            AnzahlUserInfiziert++;
-            AnzahlUserTod++;
+      if (this.Personen[i].status == tod) {
+          this.AnzahlTod++;
+          if (this.Personen[i].user) {
+            this.AnzahlUserInfiziert++;
+            this.AnzahlUserTod++;
           }
       }
-      if (Personen[i].status == geheilt) {
-        AnzahlGeheilt++;
-         if (Personen[i].user) {
-            AnzahlUserInfiziert++;
+      if (this.Personen[i].status == geheilt) {
+        this.AnzahlGeheilt++;
+         if (this.Personen[i].user) {
+            this.AnzahlUserInfiziert++;
           }
       }
-      if (Personen[i].status == infiziert) {
+      if (this.Personen[i].status == infiziert) {
         ende = false;
-        AnzahlInfiziert++;
+        this.AnzahlInfiziert++;
       }
     }
     return ende;
-  }
-  
-
+  };
 }
 
 
-class Person {
+function Person( x, y, r_, s_, u_, l_) {
   
-  constructor() {
-    let position;
-    let velocity;
-  
-    let radius, m;
-  
-    let status;
-    
-    let level=0;
-    
-    let neuerStatus=0;
-    
-    let infektedByUser = false;
-    let user = false;
-  }
-  
-  Person( x, y, r_, s_, u_, l_) {
-    this.position = new PVector(x, y);
-    this.velocity = PVector.random2D();
+    this.position = new p5.Vector(x, y);
+    this.velocity = p5.Vector.random2D();
     this.velocity.mult(3);
     this.radius = r_;
-    this.m = radius*0.1;
+    this.m = this.radius*0.1;
     this.status = s_;
     this.user = u_;
     this.level = l_;
-  }
-
-  update() {
-    position.add(velocity);
-  }
-
-  checkBoundaryCollision() {
-    if (position.x > width-radius) {
-      position.x = width-radius;
-      velocity.x *= -1;
-    } else if (position.x < radius) {
-      position.x = radius;
-      velocity.x *= -1;
-    } else if (position.y > height-radius) {
-      position.y = height-radius;
-      velocity.y *= -1;
-    } else if (position.y < radius) {
-      position.y = radius;
-      velocity.y *= -1;
-    }
-  }
+    
+    this.neuerStatus=0;
+    
+    this.infektedByUser = false;
+    this.user = false;  
   
-  setInfiziert(byUser) {
+  this.update = function() {
+    this.position.add(this.velocity);
+  };
+
+  this.checkBoundaryCollision = function() {
+    if (this.position.x > width-this.r) {
+      this.position.x = width-this.r;
+      this.velocity.x *= -1;
+    } 
+    else if (this.position.x < this.r) {
+      this.position.x = this.r;
+      this.velocity.x *= -1;
+    } 
+    else if (this.position.y > height-this.r) {
+      this.position.y = height-this.r;
+      this.velocity.y *= -1;
+    } 
+    else if (this.position.y < this.r) {
+      this.position.y = this.r;
+      this.velocity.y *= -1;
+    }
+  };
+  
+  this.setInfiziert = function(byUser) {
     if (this.status == gesund) {
       this.status = infiziert;
-      infektedByUser = byUser;
-      neuerStatus = minute()*100+second() + 10;
+      this.infektedByUser = byUser;
+      this.neuerStatus = minute()*100+second() + 10;
       display();
     }
-  }
+  };
 
- setTod() {
+ this.setTod = function() {
    this.status = tod;
-   velocity.mult(0);
- }
+   this.velocity.mult(0);
+ };
 
-  updateStatus() {
-    if (status == infiziert) {
+  this.updateStatus = function() {
+    if (this.status == infiziert) {
         let statusZeit = minute()*100+second();
-        if (statusZeit >= neuerStatus) {
+        if (statusZeit >= this.neuerStatus) {
           let schwellWert = 10;
             schwellWert = schwellWert - level / 8;
           if (random(10) < schwellWert) {
@@ -293,18 +276,18 @@ class Person {
         }
     }
     display();
-  }
+  };
   
-  checkCollision(Person other) {
+  this.checkCollision = function(other) {
 
     // Get distances between the Personen components
-    let distanceVect = PVector.sub(other.position, position);
+    let distanceVect = p5.Vector.sub(other.position, this.position);
 
     // Calculate magnitude of the vector separating the Personen
     let distanceVectMag = distanceVect.mag();
 
     // Minimum distance before they are touching
-    let minDistance = radius + other.radius;
+    let minDistance = this.radius + other.radius;
   
     updateStatus();
     
@@ -325,8 +308,8 @@ class Person {
       /* bTemp will hold rotated Person positions. You 
        just need to worry about bTemp[1] position*/
       let bTemp = [];
-      bTemp[0] = new PVector();
-      bTemp[1] = new PVector();
+      bTemp[0] = new p5.Vector();
+      bTemp[1] = new p5.Vector();
 
       /* this Person's position is relative to the other
        so you can use the vector between them (bVect) as the 
@@ -339,11 +322,11 @@ class Person {
 
       // rotate Temporary velocities
        let vTemp = [];
-      vTemp[0] = new PVector();
-      vTemp[1] = new PVector();
+      vTemp[0] = new p5.Vector();
+      vTemp[1] = new p5.Vector();
    
-      vTemp[0].x  = cosine * velocity.x + sine * velocity.y;
-      vTemp[0].y  = cosine * velocity.y - sine * velocity.x;
+      vTemp[0].x  = cosine * this.velocity.x + sine * this.velocity.y;
+      vTemp[0].y  = cosine * this.velocity.y - sine * this.velocity.x;
       vTemp[1].x  = cosine * other.velocity.x + sine * other.velocity.y;
       vTemp[1].y  = cosine * other.velocity.y - sine * other.velocity.x;
 
@@ -351,16 +334,16 @@ class Person {
        conservation of momentum equations to calculate 
        the final velocity along the x-axis. */
        let vFinal = [];
-      vFinal[0] = new PVector();
-      vFinal[1] = new PVector();
+      vFinal[0] = new p5.Vector();
+      vFinal[1] = new p5.Vector();
    
 
       // final rotated velocity for b[0]
-      vFinal[0].x = ((m - other.m) * vTemp[0].x + 2 * other.m * vTemp[1].x) / (m + other.m);
+      vFinal[0].x = ((this.m - other.m) * vTemp[0].x + 2 * other.m * vTemp[1].x) / (this.m + other.m);
       vFinal[0].y = vTemp[0].y;
 
       // final rotated velocity for b[0]
-      vFinal[1].x = ((other.m - m) * vTemp[1].x + 2 * m * vTemp[0].x) / (m + other.m);
+      vFinal[1].x = ((other.m - this.m) * vTemp[1].x + 2 * this.m * vTemp[0].x) / (this.m + other.m);
       vFinal[1].y = vTemp[1].y;
 
       // hack to avoid clumping
@@ -372,8 +355,8 @@ class Person {
        in the opposite direction */
       // rotate Personen
        let bFinal = [];
-      bFinal[0] = new PVector();
-      bFinal[1] = new PVector();
+      bFinal[0] = new p5.Vector();
+      bFinal[1] = new p5.Vector();
 
       bFinal[0].x = cosine * bTemp[0].x - sine * bTemp[0].y;
       bFinal[0].y = cosine * bTemp[0].y + sine * bTemp[0].x;
@@ -381,10 +364,10 @@ class Person {
       bFinal[1].y = cosine * bTemp[1].y + sine * bTemp[1].x;
 
       // update Personen to screen position
-      other.position.x = position.x + bFinal[1].x;
-      other.position.y = position.y + bFinal[1].y;
+      other.position.x = this.position.x + bFinal[1].x;
+      other.position.y = this.position.y + bFinal[1].y;
 
-      position.add(bFinal[0]);
+      this.position.add(bFinal[0]);
 
       // update velocities
       updateVelocity(cosine * vFinal[0].x - sine * vFinal[0].y, cosine * vFinal[0].y + sine * vFinal[0].x);
@@ -398,45 +381,45 @@ class Person {
         this.setInfiziert(other.user);
       }
     }
-  }
+  };
   
-  addPosition( correctionVector) {
-        position.add(correctionVector);
-    }
+  this.addPosition = function( correctionVector) {
+        this.position.add(correctionVector);
+    };
   
-  subPosition( correctionVector) {
+  this.subPosition = function( correctionVector) {
  
-       position.sub(correctionVector);
+       this.position.sub(correctionVector);
         
-    }
+    };
     
-   updateVelocity(x, y) {
-    if (status != tod) {
-      velocity.x = x;
-      velocity.y = y;
+   this.updateVelocity = function(x, y) {
+    if (this.status != tod) {
+      this.velocity.x = x;
+      this.velocity.y = y;
     }
-  }
+  };
   
-   display() {
+   this.display = function() {
     noStroke();
      let offset=0;
      
-     if (user) {
+     if (this.user) {
        
        offset = 100;
   }
      fill(0 + offset, 0 + offset, 255);
-     if (status == geheilt) {
+     if (this.status == geheilt) {
       fill(0 + offset, 255 - offset, 0);
     }
    
-    if (status == tod) {
+    if (this.status == tod) {
       fill(0 + offset, 0 + offset, 0);
     }
-    if (status == infiziert) {
+    if (this.status == infiziert) {
       fill(255 + offset, 0 + offset, 0);
     }
    
-    ellipse(position.x, position.y, radius*2, radius*2);
-  }
+    ellipse(this.position.x, this.position.y, this.radius*2, this.radius*2);
+  };
 }
