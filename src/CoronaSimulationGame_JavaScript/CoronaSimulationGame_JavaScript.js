@@ -4,79 +4,87 @@
  let tod = 4;
 
  let Level = 10;
- let LevelEnde = false;
+ let LevelEnde = "false";
  let volk;
  let statistik;
 
 
 function setup() {
   var canvas = createCanvas(1024, 720);
-  //canvas.parent("p5container");
+  
   volk = new Volk();
+  volk.initVolk(Level);
+  
   statistik = new Statistikdaten();
-  //volk.initVolk(Level);
 }
 
-//function keyPressed() {
-//  if (key == CODED) {
-//    if (keyCode == UP) {
-//      volk.userUp();
-//    } else if (keyCode == DOWN) {
-//      volk.userDown();
-//    } else if (keyCode == LEFT) {
-//      volk.userLeft();
-//    } else if (keyCode == RIGHT) {
-//      volk.userRight();
-//    } else if (keyCode == CONTROL) {
-//      if (LevelEnde && !volk.lebtUser()) {
-//        Level = 10;
-//        volk.initVolk(Level);
-//        loop();
-//      }
-//   }
-// } else {
-//     if (LevelEnde) {
-//       if (volk.lebtUser()) {
-//          Level = Level + 2;
-//          volk.initVolk(Level);
-//          loop();
-//        }
-//      }
-//   }
-//}
+function keyPressed() {
+  print("Levelende :" + LevelEnde);
+    if (keyCode == UP_ARROW) {
+      print("Userup " );
+      volk.userUp();
+      print("Userup " );
+    } else if (keyCode == DOWN_ARROW) {
+      volk.userDown();
+    } else if (keyCode == LEFT_ARROW) {
+      volk.userLeft();
+    } else if (keyCode == RIGHT_ARROW) {
+      volk.userRight();
+    } else if (keyCode == CONTROL) {
+      if (LevelEnde == "true" && !volk.lebtUser()) {
+        Level = 10;
+        volk.initVolk(Level);
+        loop();
+      }
+   }
+}
+
+function keyTyped() {
+  print("Levelende :" + LevelEnde);
+  if (key === ' ') {
+     if (LevelEnde == "true" ) {
+       if (volk.lebtUser()) {
+          Level = Level + 2;
+          volk.initVolk(Level);
+          loop();
+        }
+     }
+   }
+}
 
 
 function draw() {
   background(255,255,0);
- 
-  //volk.draw();
+  print("Start draw");
+  volk.draw();
   
-  //if (volk.istEnde()) {
-  //  LevelEnde = true;
+  if (volk.istEnde()) {
+    LevelEnde = "true";
     
-  //  statistik.addLeveldata(volk);
-  //  textSize(26);
-  //  fill(0);
-  //  text("Level Gesamt   : " + volk.AnzahlPersonen, 10,50);
-  //  text("Level Gesund   : " + volk.AnzahlGesund, 10,100);
-  //  text("Level Infiziert: " + volk.AnzahlInfiziert, 10,150);
-  //  text("Level Geheilt  : " + volk.AnzahlGeheilt, 10,200);
-  //  text("Level Tod      : " + volk.AnzahlTod, 10,250);
-  //  if (! volk.lebtUser()) {
+    statistik.addLeveldata(volk);
+    textSize(26);
+    fill(0);
+    text("Level Gesamt   : " + volk.AnzahlPersonen, 10,50);
+    text("Level Gesund   : " + volk.AnzahlGesund, 10,100);
+    text("Level Infiziert: " + volk.AnzahlInfiziert, 10,150);
+    text("Level Geheilt  : " + volk.AnzahlGeheilt, 10,200);
+    text("Level Tod      : " + volk.AnzahlTod, 10,250);
+    if (! volk.lebtUser()) {
       
-  //    text("Spiel Gesamt   : " + statistik.AnzahlPersonenGesamt, 10,300);
-  //    text("Spiel Gesund   : " + statistik.AnzahlGesundGesamt, 10,350);
-  //    text("Spiel Infiziert: " + statistik.AnzahlInfiziertGesamt, 10,400);
-  //    text("Spiel Geheilt  : " + statistik.AnzahlGeheiltGesamt, 10,450);
-  //    text("Spiel Tod      : " + statistik.AnzahlTodGesamt, 10,500);
-  //    fill(255,0,0);
-  //    text("Durch User infiziert: " + statistik.AnzahlUserInfiziertGesamt, 300,400);
-  //    text("Durch User gestorben: " + statistik.AnzahlUserTodGesamt, 300,500);
-  //    textSize(52);  
-  //    text("#wirbleibenzuhause", 120, 600);
-  //}
-  //  noLoop();
-  //}
+      text("Spiel Gesamt   : " + statistik.AnzahlPersonenGesamt, 10,300);
+      text("Spiel Gesund   : " + statistik.AnzahlGesundGesamt, 10,350);
+      text("Spiel Infiziert: " + statistik.AnzahlInfiziertGesamt, 10,400);
+      text("Spiel Geheilt  : " + statistik.AnzahlGeheiltGesamt, 10,450);
+      text("Spiel Tod      : " + statistik.AnzahlTodGesamt, 10,500);
+      fill(255,0,0);
+      text("Durch User infiziert: " + statistik.AnzahlUserInfiziertGesamt, 300,400);
+      text("Durch User gestorben: " + statistik.AnzahlUserTodGesamt, 300,500);
+      textSize(52);  
+      text("#wirbleibenzuhause", 120, 600);
+  }
+    print("Ende keine Verarbeitung");
+    noLoop();
+  }
 }
 
 
@@ -116,34 +124,35 @@ function Volk() {
   this.Personen = [];
   
   this.initVolk = function(maxPersonen) {
+    LevelEnde = "false";
     this.AnzahlPersonen = maxPersonen;
     
-    this.Personen[0] = new Person((1024/2), (720/2), 10, gesund, true, AnzahlPersonen);
+    this.Personen[0] = new Person((1024/2), (720/2), 10, gesund, "true", this.AnzahlPersonen);
    
     for (let i=1;i<this.AnzahlPersonen;i++) {
   
-      this.Personen[i] = new Person(random(1000)+10, random(700)+10, 10, gesund, false, AnzahlPersonen);
+      this.Personen[i] = new Person(random(1000)+10, random(700)+10, 10, gesund, "false", this.AnzahlPersonen);
     }
     
-    checkCollision();
-    
-    this.Personen[1].setInfiziert(false);  
+    this.checkCollisionVolk();
+       
+    this.Personen[1].setInfiziert("false");  
   };
 
   this.userUp = function() {
-    this.Personen[0].updateVelocity(0,-2);
+    this.Personen[0].updateVelocity(0, -1);
   };
   
   this.userDown = function() {
-    this.Personen[0].updateVelocity(0, 2);
+    this.Personen[0].updateVelocity(0, 1);
   };
   
    this.userLeft = function() {
-    this.Personen[0].updateVelocity(-1.5, 0);
+    this.Personen[0].updateVelocity(-1, 0);
   };
   
   this.userRight = function() {
-    this.Personen[0].updateVelocity(1.5, 0);
+    this.Personen[0].updateVelocity(1, 0);
   };
   
   this.lebtUser = function() {
@@ -154,21 +163,21 @@ function Volk() {
   };
   
   this.draw = function() {
-  for (let i=1;i<this.AnzahlPersonen;i++) {
+  for (let i=0;i<this.AnzahlPersonen;i++) {
   
       this.Personen[i].update();
       this.Personen[i].display();
       this.Personen[i].checkBoundaryCollision();
     }
     
-    checkCollision();
+    this.checkCollisionVolk();
     
   };
   
-  this.checkCollision = function() {
+  this.checkCollisionVolk = function() {
     for (let i=0;i<this.AnzahlPersonen;i++) {
-      for (let j=i;j<this.AnzahlPersonen;j++) {
-        this.Personen[i].checkCollision(Personen[j]);
+      for (let j=i;j<this.AnzahlPersonen;j++) {      
+        this.Personen[i].checkCollision(this.Personen[j]);
       }
     }
  
@@ -188,14 +197,14 @@ function Volk() {
       }
       if (this.Personen[i].status == tod) {
           this.AnzahlTod++;
-          if (this.Personen[i].user) {
+          if (this.Personen[i].user == "true") {
             this.AnzahlUserInfiziert++;
             this.AnzahlUserTod++;
           }
       }
       if (this.Personen[i].status == geheilt) {
         this.AnzahlGeheilt++;
-         if (this.Personen[i].user) {
+         if (this.Personen[i].user == "true") {
             this.AnzahlUserInfiziert++;
           }
       }
@@ -222,28 +231,28 @@ function Person( x, y, r_, s_, u_, l_) {
     
     this.neuerStatus=0;
     
-    this.infektedByUser = false;
-    this.user = false;  
+    this.infektedByUser = "false";
+       
   
   this.update = function() {
     this.position.add(this.velocity);
   };
 
   this.checkBoundaryCollision = function() {
-    if (this.position.x > width-this.r) {
-      this.position.x = width-this.r;
+    if (this.position.x > width-this.radius) {
+      this.position.x = width-this.radius;
       this.velocity.x *= -1;
     } 
-    else if (this.position.x < this.r) {
-      this.position.x = this.r;
+    else if (this.position.x <this.radius) {
+      this.position.x =this.radius;
       this.velocity.x *= -1;
     } 
-    else if (this.position.y > height-this.r) {
-      this.position.y = height-this.r;
+    else if (this.position.y > height-this.radius) {
+      this.position.y = height-this.radius;
       this.velocity.y *= -1;
     } 
-    else if (this.position.y < this.r) {
-      this.position.y = this.r;
+    else if (this.position.y <this.radius) {
+      this.position.y =this.radius;
       this.velocity.y *= -1;
     }
   };
@@ -253,7 +262,7 @@ function Person( x, y, r_, s_, u_, l_) {
       this.status = infiziert;
       this.infektedByUser = byUser;
       this.neuerStatus = minute()*100+second() + 10;
-      display();
+      this.display();
     }
   };
 
@@ -267,15 +276,15 @@ function Person( x, y, r_, s_, u_, l_) {
         let statusZeit = minute()*100+second();
         if (statusZeit >= this.neuerStatus) {
           let schwellWert = 10;
-            schwellWert = schwellWert - level / 8;
+            schwellWert = schwellWert - this.level / 8;
           if (random(10) < schwellWert) {
             this.status = geheilt;
           } else {
-            setTod();
+            this.setTod();
           }
         }
     }
-    display();
+    this.display();
   };
   
   this.checkCollision = function(other) {
@@ -289,7 +298,7 @@ function Person( x, y, r_, s_, u_, l_) {
     // Minimum distance before they are touching
     let minDistance = this.radius + other.radius;
   
-    updateStatus();
+    this.updateStatus();
     
     if (distanceVectMag < minDistance) {
       let distanceCorrection = (minDistance-distanceVectMag)/2.0;
@@ -297,7 +306,7 @@ function Person( x, y, r_, s_, u_, l_) {
       let correctionVector = d.normalize().mult(distanceCorrection);
       other.addPosition(correctionVector);
       
-      subPosition(correctionVector);
+      this.subPosition(correctionVector);
 
       // get angle of distanceVect
       let theta  = distanceVect.heading();
@@ -370,11 +379,11 @@ function Person( x, y, r_, s_, u_, l_) {
       this.position.add(bFinal[0]);
 
       // update velocities
-      updateVelocity(cosine * vFinal[0].x - sine * vFinal[0].y, cosine * vFinal[0].y + sine * vFinal[0].x);
+      this.updateVelocity(cosine * vFinal[0].x - sine * vFinal[0].y, cosine * vFinal[0].y + sine * vFinal[0].x);
       other.updateVelocity(cosine * vFinal[1].x - sine * vFinal[1].y, cosine * vFinal[1].y + sine * vFinal[1].x);
     
       if (this.status == infiziert) {
-        other.setInfiziert(user);
+        other.setInfiziert(this.user);
       }
       
       if (other.status == infiziert) {
@@ -404,10 +413,11 @@ function Person( x, y, r_, s_, u_, l_) {
     noStroke();
      let offset=0;
      
-     if (this.user) {
+     if (this.user == "true") {
        
        offset = 100;
-  }
+    }
+    
      fill(0 + offset, 0 + offset, 255);
      if (this.status == geheilt) {
       fill(0 + offset, 255 - offset, 0);
