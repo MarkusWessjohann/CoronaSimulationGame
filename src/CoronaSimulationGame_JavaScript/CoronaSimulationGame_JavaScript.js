@@ -40,7 +40,6 @@ function keyPressed() {
 }
 
 function keyTyped() {
-  print("Levelende :" + LevelEnde);
   if (key === ' ') {
      if (LevelEnde == "true" ) {
        if (volk.lebtUser()) {
@@ -54,7 +53,12 @@ function keyTyped() {
 
 
 function draw() {
-  background(255,255,0);
+  background(255,255,255);
+  fill(255,255,255);
+  strokeWeight(4);
+  stroke(51);
+  rect(0, 0, width, height);
+  
   print("Start draw");
   volk.draw();
   
