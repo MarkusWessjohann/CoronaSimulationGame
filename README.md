@@ -5,12 +5,14 @@ Ziel ist es so lange wie möglich zu überleben.
 
 ## Getting Started
 
-Um das Spiel zu Spielen, reicht es aus das entsprechende Zip-Archiv für eure Plattform herunterzulanden.
+Um das Spiel zu Spielen, reicht es aus das entsprechende Zip-Archiv herunterzulanden und entpacken.
+In dem Ordner findet ihr die Datei _index.html_ im Verzeichnis _\src\CoronaSimulationGame_JavaScript_.
+Diese Datei mit dem Browser öffnen.
+
 Die Zip-Archive findet ihr unter Releases.
 
 ### Prerequisites
 
-Es muss Java installiert sein.
 
 ## Anleitung zum Spiel
 
@@ -22,7 +24,7 @@ Nach einer gewissen Zeit werden die infizierten Personen wieder gesund (grün) o
 Falls sie überleben sind sie gegen Corona immun und stecken sich und andere Personen nicht mehr an.
 Das Level endet, wenn es keine infizierte Person mehr gibt.
 
-Ist die Level zu ende, wird eine kleine Statistik angezeigt und die nächste Level beginnt nach einem Enter.
+Ist die Level zu Ende, wird eine kleine Statistik angezeigt und die nächste Level beginnt nach einem Space.
 
 Das Spiel endet nicht, wenn man infiziert (orange) wurde, nur wenn man daran stirbt (dunkel grau)!
 
