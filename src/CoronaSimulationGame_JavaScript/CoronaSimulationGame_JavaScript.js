@@ -7,7 +7,8 @@
  let LevelEnde = "false";
  let volk;
  let statistik;
-
+ let oldx;
+ let oldy;
 
 function setup() {
   var canvas = createCanvas(1024, 720);
@@ -38,6 +39,33 @@ function keyPressed() {
       }
    }
 }
+
+function touchMoved() {
+  if (oldx > 0 || oldy > 0) {
+    let distx = abs(oldx - mouseX);
+    let disty = abs(oldy - mouseY);
+    let newx = 0;
+    let newy = 0;
+    if (distx > 10) {
+       if (oldx < mouseX) {
+         newx = 1;
+       } else {
+         newx = -1;
+       }
+    }
+    if (disty > 10) {
+       if (oldy < mouseY) {
+         newy = 1;
+       } else {
+         newy = -1;
+       }
+    }    
+     volk.userDirection(newx, newy);
+  }
+  oldx = mouseX;
+  oldy = mouseY;
+}
+
 
 function keyTyped() {
   if (key === ' ') {
@@ -143,9 +171,15 @@ function Volk() {
     this.Personen[1].setInfiziert("false");  
   };
 
+
+  this.userDirection = function(x,y) {
+    this.Personen[0].updateVelocity(x, y);
+  };
+  
   this.userUp = function() {
     this.Personen[0].updateVelocity(0, -1);
   };
+  
   
   this.userDown = function() {
     this.Personen[0].updateVelocity(0, 1);
