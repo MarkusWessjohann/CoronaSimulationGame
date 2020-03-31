@@ -20,18 +20,24 @@ function setup() {
 }
 
 function keyPressed() {
-  print("Levelende :" + LevelEnde);
+    let newx = 0;
+    let newy = 0;
     if (keyCode == UP_ARROW) {
-      print("Userup " );
-      volk.userUp();
-      print("Userup " );
-    } else if (keyCode == DOWN_ARROW) {
-      volk.userDown();
-    } else if (keyCode == LEFT_ARROW) {
-      volk.userLeft();
-    } else if (keyCode == RIGHT_ARROW) {
-      volk.userRight();
-    } else if (keyCode == CONTROL) {
+      newy = -1;
+    } 
+     if (keyCode == DOWN_ARROW) {
+      newy = 1;
+    } 
+    if (keyCode == LEFT_ARROW) {
+      newx = -1;
+    } 
+    if (keyCode == RIGHT_ARROW) {
+      newx = 1;
+    }
+    if (newx != 0 || newy != 0) {
+       volk.userDirection(newx, newy);
+    }
+    if (keyCode == CONTROL) {
       if (LevelEnde == "true" && !volk.lebtUser()) {
         Level = 10;
         volk.initVolk(Level);
@@ -39,6 +45,22 @@ function keyPressed() {
       }
    }
 }
+
+function doubleClicked() {
+   if (LevelEnde == "true" ) {
+     if (!volk.lebtUser()) {
+        Level = 10;
+        volk.initVolk(Level);
+        loop();
+      } else {
+       if (volk.lebtUser()) {
+          Level = Level + 2;
+          volk.initVolk(Level);
+          loop();
+        }
+     }
+   }
+};
 
 function touchMoved() {
   if (oldx > 0 || oldy > 0) {
@@ -60,10 +82,25 @@ function touchMoved() {
          newy = -1;
        }
     }    
-     volk.userDirection(newx, newy);
+    volk.userDirection(newx, newy);
+    oldx = mouseX;
+    oldy = mouseY;
+    return;
   }
-  oldx = mouseX;
-  oldy = mouseY;
+    if (LevelEnde == "true" ) {
+     if (!volk.lebtUser()) {
+        Level = 10;
+        volk.initVolk(Level);
+        loop();
+      } else {
+       if (volk.lebtUser()) {
+          Level = Level + 2;
+          volk.initVolk(Level);
+          loop();
+        }
+     }
+   }
+
 }
 
 
@@ -87,7 +124,6 @@ function draw() {
   stroke(51);
   rect(0, 0, width, height);
   
-  print("Start draw");
   volk.draw();
   
   if (volk.istEnde()) {
@@ -114,7 +150,6 @@ function draw() {
       textSize(52);  
       text("#wirbleibenzuhause", 120, 600);
   }
-    print("Ende keine Verarbeitung");
     noLoop();
   }
 }
