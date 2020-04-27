@@ -5,6 +5,8 @@ Ziel ist es so lange wie möglich zu überleben.
 
 ## Getting Started
 
+[Direkt online spielen](https://cutt.ly/XtYecMh)
+
 Um das Spiel zu Spielen, reicht es aus das entsprechende Zip-Archiv herunterzulanden und entpacken.
 In dem Ordner findet ihr die Datei _index.html_ im Verzeichnis _\src\CoronaSimulationGame_JavaScript_.
 Diese Datei mit dem Browser öffnen.

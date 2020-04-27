@@ -7,7 +7,8 @@
  let LevelEnde = "false";
  let volk;
  let statistik;
-
+ let oldx;
+ let oldy;
 
 function setup() {
   var canvas = createCanvas(1024, 720);
@@ -19,18 +20,24 @@ function setup() {
 }
 
 function keyPressed() {
-  print("Levelende :" + LevelEnde);
+    let newx = 0;
+    let newy = 0;
     if (keyCode == UP_ARROW) {
-      print("Userup " );
-      volk.userUp();
-      print("Userup " );
-    } else if (keyCode == DOWN_ARROW) {
-      volk.userDown();
-    } else if (keyCode == LEFT_ARROW) {
-      volk.userLeft();
-    } else if (keyCode == RIGHT_ARROW) {
-      volk.userRight();
-    } else if (keyCode == CONTROL) {
+      newy = -1;
+    } 
+     if (keyCode == DOWN_ARROW) {
+      newy = 1;
+    } 
+    if (keyCode == LEFT_ARROW) {
+      newx = -1;
+    } 
+    if (keyCode == RIGHT_ARROW) {
+      newx = 1;
+    }
+    if (newx != 0 || newy != 0) {
+       volk.userDirection(newx, newy);
+    }
+    if (keyCode == CONTROL) {
       if (LevelEnde == "true" && !volk.lebtUser()) {
         Level = 10;
         volk.initVolk(Level);
@@ -38,6 +45,64 @@ function keyPressed() {
       }
    }
 }
+
+function doubleClicked() {
+   if (LevelEnde == "true" ) {
+     if (!volk.lebtUser()) {
+        Level = 10;
+        volk.initVolk(Level);
+        loop();
+      } else {
+       if (volk.lebtUser()) {
+          Level = Level + 2;
+          volk.initVolk(Level);
+          loop();
+        }
+     }
+   }
+};
+
+function touchMoved() {
+  if (oldx > 0 || oldy > 0) {
+    let distx = abs(oldx - mouseX);
+    let disty = abs(oldy - mouseY);
+    let newx = 0;
+    let newy = 0;
+    if (distx > 10) {
+       if (oldx < mouseX) {
+         newx = 1;
+       } else {
+         newx = -1;
+       }
+    }
+    if (disty > 10) {
+       if (oldy < mouseY) {
+         newy = 1;
+       } else {
+         newy = -1;
+       }
+    }    
+    volk.userDirection(newx, newy);
+    oldx = mouseX;
+    oldy = mouseY;
+    return;
+  }
+    if (LevelEnde == "true" ) {
+     if (!volk.lebtUser()) {
+        Level = 10;
+        volk.initVolk(Level);
+        loop();
+      } else {
+       if (volk.lebtUser()) {
+          Level = Level + 2;
+          volk.initVolk(Level);
+          loop();
+        }
+     }
+   }
+
+}
+
 
 function keyTyped() {
   if (key === ' ') {
@@ -59,7 +124,6 @@ function draw() {
   stroke(51);
   rect(0, 0, width, height);
   
-  print("Start draw");
   volk.draw();
   
   if (volk.istEnde()) {
@@ -86,7 +150,6 @@ function draw() {
       textSize(52);  
       text("#wirbleibenzuhause", 120, 600);
   }
-    print("Ende keine Verarbeitung");
     noLoop();
   }
 }
@@ -143,9 +206,15 @@ function Volk() {
     this.Personen[1].setInfiziert("false");  
   };
 
+
+  this.userDirection = function(x,y) {
+    this.Personen[0].updateVelocity(x, y);
+  };
+  
   this.userUp = function() {
     this.Personen[0].updateVelocity(0, -1);
   };
+  
   
   this.userDown = function() {
     this.Personen[0].updateVelocity(0, 1);
