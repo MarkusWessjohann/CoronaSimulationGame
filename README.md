@@ -18,15 +18,17 @@ Die Zip-Archive findet ihr unter Releases.
 
 ## Anleitung zum Spiel
 
+Bitte bis zum Ende durchspielen!!!
+
 Sobald ihr das Spiel startet, fangt ihr mit einer Population von 10 Personen an. Eine Person seit ihr (hellblau) und kann durch euch mit den Cursor-Tasten gesteuert werden.
 Eine weiter Person ist mit Corona infiziert (rot) und die restlichen (blau) sind noch gesund.
 
 Beim ersten Kontakt mit der infizierten Person, wird die betreffende Person infiziert.
 Nach einer gewissen Zeit werden die infizierten Personen wieder gesund (grün) oder sterben (schwarz).
 Falls sie überleben sind sie gegen Corona immun und stecken sich und andere Personen nicht mehr an.
-Das Level endet, wenn es keine infizierte Person mehr gibt.
+Jedes Level endet, sobald es keine infizierte Person mehr gibt.
 
-Ist die Level zu Ende, wird eine kleine Statistik angezeigt und die nächste Level beginnt nach einem Space.
+Danach wird eine kleine Statistik angezeigt und die nächste Level beginnt nach einem Space.
 
 Das Spiel endet nicht, wenn man infiziert (orange) wurde, nur wenn man daran stirbt (dunkel grau)!
 
